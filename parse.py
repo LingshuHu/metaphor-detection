@@ -14,7 +14,7 @@ def parse(sentence="", folder="parser"):
         writefile.write(sentence)
         writefile.close()
 
-    return parse_file("test.txt", folder)
+    return(parse_file("test.txt", folder))
 
 def parse_file(filepath, folder="parser"):
     """ Accepts a file path to parse and optionally the folder where the stanford parser is located (default 'parser')
@@ -26,17 +26,17 @@ def parse_file(filepath, folder="parser"):
     parser_output = os.popen(folder + '/lexparser.sh "' + filepath + '"').read()
     parser_output = parser_output.split("\n\n")
 
-    return parser_output[0], parser_output[1]
+    return(parser_output[0], parser_output[1])
 
 # Driver function
 
 if __name__ == "__main__":
-    sentence = raw_input("Enter a sentence to parse: ")
-    folder = raw_input("Enter folder path where parser is located (should have lexparser.sh, leave empty for default): ")
+    sentence = input("Enter a sentence to parse: ")
+    folder = input("Enter folder path where parser is located (should have lexparser.sh, leave empty for default): ")
 
     if folder == "":
         parsed_output = parse(sentence)
     else:
         parsed_output = parse(sentence, folder)
-    print "\nConstituency parse\n{0}".format(parsed_output[0])
-    print "\nDependency parse\n{0}".format(parsed_output[1])
+    print("\nConstituency parse\n{0}".format(parsed_output[0]))
+    print("\nDependency parse\n{0}".format(parsed_output[1]))
