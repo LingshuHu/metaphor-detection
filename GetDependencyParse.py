@@ -10,7 +10,7 @@ def dependency_parse(sentence):
     """
 
     # sentence = raw_input("Enter a sentence: ")
-
+    # needs Java installed
     parser_folder = "stanford-parser-2013-04-05"    # Change if parser is in some other directory
     parse_output = parse(sentence, parser_folder)
 
