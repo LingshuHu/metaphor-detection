@@ -11,7 +11,7 @@ def dependency_parse(sentence):
 
     # sentence = raw_input("Enter a sentence: ")
     # needs Java installed
-    parser_folder = "stanford-parser-2013-04-05"    # Change if parser is in some other directory
+    parser_folder = "stanford-parser-full-2020-11-17"    # Change if parser is in some other directory
     parse_output = parse(sentence, parser_folder)
 
     # List of nouns
@@ -31,7 +31,15 @@ def dependency_parse(sentence):
     for i in dep_parse:
         if len(i.strip()) > 0 and i.strip()[0] != "(":
             line=i.strip()
-            dependency_parse.append(filter(lambda x:x.isalpha(),re.findall(r"[\w']+", line)))
+            line = re.findall(r"[\w']+", line)
+            
+            filters = []
+            for j in line:
+                if(j.isalpha()):
+                    filters.append(j)
+            dependency_parse.append(filters)
+            
+            #dependency_parse.append(list(filter(lambda x:x.isalpha(),re.findall(r"[\w']+", line))))
 
     return(dependency_parse, noun_list)
 

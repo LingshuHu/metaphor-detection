@@ -7,7 +7,13 @@ def detect_metaphor(sentence):
 
     dep_parse_output, noun_list = dependency_parse(sentence.lower())
 
-    nsubj_pairs = [ns_parse[1:] for ns_parse in list(filter(lambda dp: dp[0] == "nsubj" and dp[1] in noun_list and dp[2] in noun_list, dep_parse_output))]
+    nsubj_pairs = []
+    for dp in dep_parse_output:
+        if(len(dp) >= 3):
+            if (dp[0] == "nsubj" and dp[1] in noun_list and dp[2] in noun_list):
+                nsubj_pairs.append(dp[1:])
+
+    #nsubj_pairs = [ns_parse[1:] for ns_parse in list(filter(lambda dp: dp[0] == "nsubj" and dp[1] in noun_list and dp[2] in noun_list, dep_parse_output))]
 
     for pair in nsubj_pairs:
         print("\nInvestigating metaphor for pair {0}".format(pair))
@@ -20,7 +26,7 @@ def detect_metaphor(sentence):
             print("What sense of '{0}' would you like to use?".format(word))
             for i, synset in enumerate(synsets):
                 print("{0}: {1}".format(i, synset.definition))
-            chosen_id = int(raw_input("Enter number corresponding to sense: "))
+            chosen_id = int(input("Enter number corresponding to sense: "))
 
             syn_pair.append(synsets[chosen_id])
 
